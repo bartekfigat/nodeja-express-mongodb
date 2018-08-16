@@ -1,0 +1,20 @@
+{
+  "name": "express-app",
+  "version": "1.0.0",
+  "description": "testing express app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Bartlomiej Figatowski",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.7",
+    "nodemon": "^1.18.3",
+    "normalize.css": "^8.0.0"
+  }
+}

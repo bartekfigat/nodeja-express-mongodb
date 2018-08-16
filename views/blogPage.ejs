@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Welcom to post page</h1>
+  <a href="/blog/new">Create new post </a>
+</div>
+
+<div class="post">
+  <% Post.forEach(function(post){%>
+    <div class="card">
+      <h1>
+        <%= post.title%>
+      </h1>
+      <h1>
+        <%= post.description%>
+      </h1>
+      <p>
+        Views:
+        <%= post.views%>
+      </p>
+      <a href="/blog/<%= post._id %>">more...</a>
+    </div>
+    <%})%>
+</div>
+
+<button>
+  <a href="/">back...</a>
+</button>
