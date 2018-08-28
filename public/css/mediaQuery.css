@@ -1,0 +1,8 @@
+@media (max-width: 680px) {
+  ul.nav_bar li.nav_bar_left {
+    display: none;
+  }
+  ul.nav_bar li.dropdownIcon {
+    display: block;
+  }
+}

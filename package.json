@@ -1,0 +1,20 @@
+{
+  "name": "nodejs-expressjs-mongodb",
+  "version": "1.0.0",
+  "description": "Express App",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Bartlomiej Figatowski",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.10",
+    "path": "^0.12.7"
+  }
+}
