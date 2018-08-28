@@ -1,17 +1,18 @@
+require("dotenv").config({ path: ".env" });
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const mongodb = require("mongodb");
+const Post = require("./models/Post");
+const Comment = require("./models/comment");
 const ejs = require("ejs");
 const path = require("path");
 const moment = require("moment");
+
 const app = new express();
 
-const Post = require("./models/Post");
-const Comment = require("./models/comment");
 // Connect to mongoDB
-const db =
-  "mongodb://my_app:222465bartek@ds119692.mlab.com:19692/my_express_app";
+const db = process.env.DB_PASSWORD;
 mongoose
   .connect(
     db,
@@ -50,8 +51,8 @@ app.set("view engine", "ejs");
 //     console.log(err);
 //   });
 
-//function that searches for only one object
-// Post.find({}, { title: 1, _id: 1 }, (err, titles) => {})
+// function that searches for only one object
+// Post.find({}, { title: 1, _id: 0 }, (err, titles) => {})
 //   .then(titles => {
 //     console.log(titles);
 //   })
@@ -63,29 +64,39 @@ const momentData = moment().format("MMM Do YY");
 
 //Set landing page
 app.get("/", (req, res) => {
-  res.render("landingPage");
+  Post.find({})
+    .then(allTitle => {
+      if (allTitle) {
+        res.render("layouts/landingPage", { allTitle: allTitle });
+      } else {
+        console.log(err);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
 });
 
 // Set about page
 app.get("/about", (req, res) => {
-  res.render("aboutPage");
+  res.render("layouts/aboutPage");
 });
 //Set portfolio page
 app.get("/portfolio", (req, res) => {
-  res.render("portfolioPage");
+  res.render("layouts/portfolioPage");
 });
 // Set blog page
 app.get("/blog", (req, res) => {
   Post.find({})
     .then(allPost => {
       if (allPost) {
-        res.render("blogPage", {
+        res.render("blog/index", {
           Post: allPost,
           moment: moment,
           msg: "Welcome to post page"
         });
       } else {
-        res.send("where is the post");
+        return res.redirect("/");
       }
     })
     .catch(err => {
@@ -119,7 +130,7 @@ app.post("/blog", (req, res) => {
 });
 
 app.get("/blog/new", (req, res) => {
-  res.render("new");
+  res.render("blog/new");
 });
 
 app.get("/blog/:id", (req, res) => {
@@ -133,11 +144,56 @@ app.get("/blog/:id", (req, res) => {
         console.error(err);
       } else {
         Post.findByIdAndUpdate({ _id: id }, { $inc: { views: 1 } }, (e, a) => {
-          console.log(`views count: ${a.views}`);
-          console.log(`cretad: ${moment(a.date).fromNow()}`);
+          // console.log(`views count: ${a.views}`);
+          // console.log(`cretad: ${moment(a.date).fromNow()}`);
         });
-        res.render("show", { post: foundBlog });
+        res.render("blog/show", { post: foundBlog });
       }
+    });
+});
+
+app.get("/blog/:id/comments/new", (req, res) => {
+  Post.findById(req.params.id)
+    .then(post => {
+      if (post) {
+        res.render("comments/new", { post: post });
+      } else {
+        res.redirect("/blog");
+      }
+    })
+    .catch(err => {
+      return res.redirect("/blog");
+      console.error(err);
+    });
+});
+
+app.post("/blog/:id/comments", (req, res) => {
+  //lokup blog using id
+  //create new comment
+  //connect new comment to blog
+  //redirect blog/show
+  Post.findById(req.params.id)
+    .then(post => {
+      let text = req.body.text;
+      let author = req.body.author;
+
+      const allComment = {
+        text: text,
+        author: author
+      };
+      Comment.create(allComment).then(comment => {
+        if (!comment) {
+        } else {
+          console.log(comment);
+          post.comments.push(comment);
+          post.save();
+          res.redirect("/blog/" + post._id);
+        }
+      });
+    })
+    .catch(err => {
+      return res.redirect("/blog");
+      console.error(err);
     });
 });
 
