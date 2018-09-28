@@ -9,10 +9,11 @@ const ejs = require("ejs");
 const path = require("path");
 const moment = require("moment");
 
-const app = new express();
+const app = express();
 
 // Connect to mongoDB
-const db = process.env.DB_PASSWORD;
+const db = process.env.DB_PASSWORD || "mongodb://localhost:27017/express-test";
+
 mongoose
   .connect(
     db,
@@ -22,7 +23,13 @@ mongoose
     console.log("mongoDB connected");
   })
   .catch(err => {
-    console.log(err);
+    console.log(
+      `message: ${err.message}  
+       codeN:${err.codeName} 
+       codeNumber:${err.code} 
+       errName:${err.name}
+      `
+    );
   });
 // Staic file
 app.use(express.static("./public"));
@@ -35,6 +42,11 @@ app.use(
     extended: true
   })
 );
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(422).send({ error: err.message });
+});
 
 app.set("view engine", "ejs");
 
@@ -137,7 +149,7 @@ app.get("/blog/:id", (req, res) => {
   const id = req.params.id;
 
   Post.findById(id)
-    .populate("Comment")
+    .populate("comments")
     .exec((err, foundBlog) => {
       if (err || !foundBlog) {
         res.redirect("/blog");
@@ -167,7 +179,7 @@ app.get("/blog/:id/comments/new", (req, res) => {
     });
 });
 
-app.post("/blog/:id/comments", (req, res) => {
+app.post("/blog/:id/comments", (req, res, next) => {
   //lokup blog using id
   //create new comment
   //connect new comment to blog
@@ -191,10 +203,7 @@ app.post("/blog/:id/comments", (req, res) => {
         }
       });
     })
-    .catch(err => {
-      return res.redirect("/blog");
-      console.error(err);
-    });
+    .catch(next);
 });
 
 const port = process.env.PORT || 3000;
