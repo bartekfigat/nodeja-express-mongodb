@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const mongodb = require("mongodb");
+<<<<<<< HEAD
 const Post = require("./models/Post");
 const Comment = require("./models/comment");
 const ejs = require("ejs");
@@ -14,6 +15,17 @@ const app = express();
 // Connect to mongoDB
 const db = process.env.DB_PASSWORD || "mongodb://localhost:27017/express-test";
 
+=======
+const ejs = require("ejs");
+const path = require("path");
+const moment = require("moment");
+const app = new express();
+
+const Post = require("./models/Post");
+const Comment = require("./models/comment");
+// Connect to mongoDB
+const db = process.env.DB_PASSWORD;
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 mongoose
   .connect(
     db,
@@ -23,6 +35,7 @@ mongoose
     console.log("mongoDB connected");
   })
   .catch(err => {
+<<<<<<< HEAD
     console.log(
       `message: ${err.message}  
        codeN:${err.codeName} 
@@ -30,6 +43,9 @@ mongoose
        errName:${err.name}
       `
     );
+=======
+    console.log(err);
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
   });
 // Staic file
 app.use(express.static("./public"));
@@ -43,11 +59,14 @@ app.use(
   })
 );
 
+<<<<<<< HEAD
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(422).send({ error: err.message });
 });
 
+=======
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 app.set("view engine", "ejs");
 
 // function that searches all database
@@ -63,8 +82,13 @@ app.set("view engine", "ejs");
 //     console.log(err);
 //   });
 
+<<<<<<< HEAD
 // function that searches for only one object
 // Post.find({}, { title: 1, _id: 0 }, (err, titles) => {})
+=======
+//function that searches for only one object
+// Post.find({}, { title: 1, _id: 1 }, (err, titles) => {})
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 //   .then(titles => {
 //     console.log(titles);
 //   })
@@ -76,6 +100,7 @@ const momentData = moment().format("MMM Do YY");
 
 //Set landing page
 app.get("/", (req, res) => {
+<<<<<<< HEAD
   Post.find({})
     .then(allTitle => {
       if (allTitle) {
@@ -87,28 +112,47 @@ app.get("/", (req, res) => {
     .catch(err => {
       console.error(err);
     });
+=======
+  res.render("landingPage");
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 });
 
 // Set about page
 app.get("/about", (req, res) => {
+<<<<<<< HEAD
   res.render("layouts/aboutPage");
 });
 //Set portfolio page
 app.get("/portfolio", (req, res) => {
   res.render("layouts/portfolioPage");
+=======
+  res.render("aboutPage");
+});
+//Set portfolio page
+app.get("/portfolio", (req, res) => {
+  res.render("portfolioPage");
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 });
 // Set blog page
 app.get("/blog", (req, res) => {
   Post.find({})
     .then(allPost => {
       if (allPost) {
+<<<<<<< HEAD
         res.render("blog/index", {
+=======
+        res.render("blogPage", {
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
           Post: allPost,
           moment: moment,
           msg: "Welcome to post page"
         });
       } else {
+<<<<<<< HEAD
         return res.redirect("/");
+=======
+        res.send("where is the post");
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
       }
     })
     .catch(err => {
@@ -142,20 +186,29 @@ app.post("/blog", (req, res) => {
 });
 
 app.get("/blog/new", (req, res) => {
+<<<<<<< HEAD
   res.render("blog/new");
+=======
+  res.render("new");
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 });
 
 app.get("/blog/:id", (req, res) => {
   const id = req.params.id;
 
   Post.findById(id)
+<<<<<<< HEAD
     .populate("comments")
+=======
+    .populate("Comment")
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
     .exec((err, foundBlog) => {
       if (err || !foundBlog) {
         res.redirect("/blog");
         console.error(err);
       } else {
         Post.findByIdAndUpdate({ _id: id }, { $inc: { views: 1 } }, (e, a) => {
+<<<<<<< HEAD
           // console.log(`views count: ${a.views}`);
           // console.log(`cretad: ${moment(a.date).fromNow()}`);
         });
@@ -206,6 +259,16 @@ app.post("/blog/:id/comments", (req, res, next) => {
     .catch(next);
 });
 
+=======
+          console.log(`views count: ${a.views}`);
+          console.log(`cretad: ${moment(a.date).fromNow()}`);
+        });
+        res.render("show", { post: foundBlog });
+      }
+    });
+});
+
+>>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`app running on port ${port}`);

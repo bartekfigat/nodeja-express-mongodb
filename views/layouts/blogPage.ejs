@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>
+      <%= msg %>
+    </h1>
+  </div>
+
+  <br/>
+  <div class="ui grid">
+    <% Post.forEach(function(post){%>
+
+      <div class="ui link cards ">
+
+        <div class="card four wide column">
+          <div class="image ui segment">
+            <div class="item">
+              <img class="ui centered rounded image" src="/img/home-bg.jpg">
+            </div>
+
+          </div>
+          <div class="blurring dimmable image">
+            <div class="ui dimmer">
+            </div>
+
+          </div>
+          <div class="content">
+            <a href="/blog/<%= post._id %>" class="header">
+              <%= post.title%>
+            </a>
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              Created
+              <%= moment(post.date).fromNow() %>
+            </span>
+            <span>
+              <i class="eye icon"></i>
+              <%= post.views%>
+            </span>
+          </div>
+        </div>
+      </div>
+      <%})%>
+
+  </div>
+  <br/>
+
+  <a href="/">back...</a>
+
+  <br/>
+  <a href="/blog/new">Create new post </a>
+
+
+  <div class="blog-card spring-fever">
+    <div class="title-content">
+      <h3>
+        <a href="#">10 inspiring photos</a>
+      </h3>
+      <div class="intro">
+        <a href="#">Inspiration</a>
+      </div>
+    </div>
+    <div class="card-info">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim...
+      <a href="#">Read Article
+        <span class="licon icon-arr icon-black"></span>
+      </a>
+    </div>
+    <div class="utility-info">
+      <ul class="utility-list">
+        <li>
+          <span class="licon icon-like"></span>
+          <a href="#">2</a>
+        </li>
+        <li>
+          <span class="licon icon-com"></span>
+          <a href="#">12</a>
+        </li>
+        <li>
+          <span class="licon icon-dat"></span>03 jun 2017</li>
+        <li>
+          <span class="licon icon-tag"></span>
+          <a href="#">Photos</a>,
+          <a href="#">Nice</a>
+        </li>
+      </ul>
+    </div>
+    <div class="gradient-overlay"></div>
+    <div class="color-overlay"></div>
+  </div>
+  <!-- /.blog-card -->
+
+
+
+
+</body>
+
+</html>
