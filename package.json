@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
   "name": "express-app",
   "version": "1.0.0",
   "description": "testing express app",
-=======
-  "name": "nodejs-expressjs-mongodb",
-  "version": "1.0.0",
-  "description": "Express App",
->>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
@@ -20,14 +14,12 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "moment": "^2.22.2",
-<<<<<<< HEAD
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.7",
     "nodemon": "^1.18.3",
     "normalize.css": "^8.0.0"
-=======
-    "mongoose": "^5.2.10",
-    "path": "^0.12.7"
->>>>>>> 8a7f2b26266ba509f27e53a90b06c76a5116f1da
+  },
+  "devDependencies": {
+    "supervisor": "^0.12.0"
   }
 }
