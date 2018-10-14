@@ -1,9 +1,19 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  content: String,
+  title: {
+    type: String,
+    required: [true, "empty field"]
+  },
+
+  description: {
+    type: String,
+    required: [true, "empty field"]
+  },
+  content: {
+    type: String,
+    required: [true, "empty field"]
+  },
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

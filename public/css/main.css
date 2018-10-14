@@ -99,3 +99,7 @@ ul.nav_bar li.dropdownIcon {
 }
 
 /* style list title end*/
+.error {
+  color: #fff;
+  background-color: red;
+}

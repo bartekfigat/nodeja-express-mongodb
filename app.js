@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const mongodb = require("mongodb");
+const flash = require("express-flash");
+const session = require("express-session");
 const Post = require("./models/Post");
 const Comment = require("./models/comment");
 const ejs = require("ejs");
@@ -34,21 +36,27 @@ mongoose
 // Staic file
 app.use(express.static("./public"));
 
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 // Body parser middleware
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(
-  bodyParser.urlencoded({
-    extended: true
+  session({
+    secret: "secret12345",
+    resave: false,
+    saveUninitialized: true
   })
 );
+app.use(flash());
 
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(422).send({ error: err.message });
 });
-
-app.set("view engine", "ejs");
 
 // function that searches all database
 // Post.find({}, (err, posts) => {
@@ -137,7 +145,9 @@ app.post("/blog", (req, res) => {
       }
     })
     .catch(err => {
-      console.error(err);
+      req.flash("error", err.message);
+      res.redirect("/blog/new");
+      console.error(err.message);
     });
 });
 
