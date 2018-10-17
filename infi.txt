@@ -1,0 +1,21 @@
+// function that searches all database
+// Post.find({}, (err, posts) => {
+//   console.log(posts);
+// });
+
+// Post.find({}, { title: 1, _id: 0 }, (err, user) => {})
+//   .then(user => {
+//     console.log(user);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+
+// function that searches for only one object
+// Post.find({}, { title: 1, _id: 0 }, (err, titles) => {})
+//   .then(titles => {
+//     console.log(titles);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
