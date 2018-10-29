@@ -1,0 +1,168 @@
+body {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-dark {
+  background-color: rgb(90, 115, 145) !important;
+}
+
+#row-custom {
+  height: 300px;
+}
+.logo {
+  width: 100%;
+  margin: 0 auto;
+}
+.logo img {
+  width: 50%;
+}
+.ui.secondary.vertical.pointing.menu {
+  margin-top: 19em;
+  margin-left: 2em;
+  float: left;
+  clear: both;
+}
+.ui.secondary.vertical.pointing.menu a:hover {
+  background-color: rgba(111, 169, 230, 0.41);
+  color: white;
+}
+
+.ui.secondary.vertical.pointing.menu a.active {
+  background-color: rgb(27, 28, 29);
+  color: #fff;
+}
+
+.ui.secondary.vertical.pointing.menu a.active:hover {
+  color: #fff;
+}
+.container.top {
+  margin-top: 7em;
+}
+#size-col {
+  padding: 1em;
+  height: 30em;
+}
+#size-col img {
+  width: 100%;
+  height: 15em;
+  background-image: url(http://digitalsigniloilo.com/wp-content/uploads/2015/12/blank-profile.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.jumbotron {
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+#sizeImg img {
+  height: 35em;
+}
+.caption {
+  padding: 1em;
+  background-color: #f9f9f9;
+  margin-left: -1em;
+}
+.caption h4 {
+  background-color: rgba(0, 160, 166, 0.49);
+  color: #fff;
+  padding: 1em 2em;
+  font-size: 1em;
+  border-radius: 2px;
+}
+
+#carousel img {
+  width: 45%;
+  height: 20em;
+}
+#delete-form {
+  display: inline;
+}
+
+#loginForm {
+  margin-top: 8em;
+  margin-left: auto;
+  margin-right: auto;
+}
+#loginForm-row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer {
+  margin-top: 10em;
+  height: 25rem;
+  background-color: rgb(90, 115, 145) !important;
+}
+#footer-1 {
+  margin-top: 60em;
+  height: 25rem;
+  background-color: rgb(90, 115, 145) !important;
+}
+#tytul {
+  color: rgb(0, 160, 166);
+}
+.container-h1 {
+  color: rgb(0, 160, 166);
+  margin-right: 2em;
+}
+
+#font-row {
+  margin-bottom: 10em;
+}
+h1 img {
+  width: 15%;
+  margin: 0.5em;
+}
+
+h1.font {
+  font-size: 6em;
+  color: rgb(69, 151, 170);
+  margin-top: 1em;
+  text-align: center;
+}
+.col-md-4 h2 {
+  text-align: center;
+  font-size: 1.7em;
+}
+.col-md-4 p {
+  text-align: center;
+  font-size: 1em;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+}
+#img-row {
+  padding: 0;
+  margin: 0;
+}
+#img-row img {
+  width: 100%;
+  height: 30em;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0;
+  transition: 0.5s;
+}
+#col-4 {
+  padding: 0;
+  margin: 0;
+}
+
+.ui.mini.image {
+  width: 20%;
+}
+.dropdown {
+}
+#desctiption {
+  height: 4em;
+}

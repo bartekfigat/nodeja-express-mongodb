@@ -5,7 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/mediaQuery.css">
+  <link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/bootstrap.min.css">
+  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/lib/animate/animate.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
   <title>Document</title>
 </head>
 
@@ -17,95 +22,119 @@
     </h1>
   </div>
 
-  <br/>
+  <br />
   <div class="ui grid">
     <% Post.forEach(function(post){%>
 
-      <div class="ui link cards ">
+    <div class="ui link cards ">
 
-        <div class="card four wide column">
-          <div class="image ui segment">
-            <div class="item">
-              <img class="ui centered rounded image" src="/img/home-bg.jpg">
-            </div>
+      <div class="card four wide column">
+        <div class="image ui segment">
+          <div class="item">
+            <img class="ui centered rounded image" src="/img/home-bg.jpg">
+          </div>
 
+        </div>
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
           </div>
-          <div class="blurring dimmable image">
-            <div class="ui dimmer">
-            </div>
 
-          </div>
-          <div class="content">
-            <a href="/blog/<%= post._id %>" class="header">
-              <%= post.title%>
-            </a>
-          </div>
-          <div class="extra content">
-            <span class="right floated">
-              Created
-              <%= moment(post.date).fromNow() %>
-            </span>
-            <span>
-              <i class="eye icon"></i>
-              <%= post.views%>
-            </span>
+        </div>
+        <div class="content">
+          <a href="/blog/<%= post._id %>" class="header">
+            <%= post.title%>
+          </a>
+        </div>
+        <div class="extra content">
+          <span class="right floated">
+            Created
+            <%= moment(post.date).fromNow() %>
+          </span>
+          <span>
+            <i class="eye icon"></i>
+            <%= post.views%>
+          </span>
+        </div>
+      </div>
+    </div>
+    <%})%>
+
+  </div>
+  <br />
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-6 col-lg-4">
+        <div class="block-blog text-left">
+          <a href="#"><img src="/img/kids.jpg" alt="img"></a>
+          <div class="content-blog">
+            <h4><a href="#">whats isthe difference between good and bat typography</a></h4>
+            <span>05, juin 2017</span>
+            <a class="pull-right readmore" href="#">read more</a>
           </div>
         </div>
       </div>
-      <%})%>
+      <br />
 
-  </div>
-  <br/>
+      <a href="/">back...</a>
 
-  <a href="/">back...</a>
-
-  <br/>
-  <a href="/blog/new">Create new post </a>
+      <br />
+      <a href="/blog/new">Create new post </a>
 
 
-  <div class="blog-card spring-fever">
-    <div class="title-content">
-      <h3>
-        <a href="#">10 inspiring photos</a>
-      </h3>
-      <div class="intro">
-        <a href="#">Inspiration</a>
+      <div class="blog-card spring-fever">
+        <div class="title-content">
+          <h3>
+            <a href="#">10 inspiring photos</a>
+          </h3>
+          <div class="intro">
+            <a href="#">Inspiration</a>
+          </div>
+        </div>
+        <div class="card-info">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua.
+          Ut enim ad minim...
+          <a href="#">Read Article
+            <span class="licon icon-arr icon-black"></span>
+          </a>
+        </div>
+        <div class="utility-info">
+          <ul class="utility-list">
+            <li>
+              <span class="licon icon-like"></span>
+              <a href="#">2</a>
+            </li>
+            <li>
+              <span class="licon icon-com"></span>
+              <a href="#">12</a>
+            </li>
+            <li>
+              <span class="licon icon-dat"></span>03 jun 2017</li>
+            <li>
+              <span class="licon icon-tag"></span>
+              <a href="#">Photos</a>,
+              <a href="#">Nice</a>
+            </li>
+          </ul>
+        </div>
+        <div class="gradient-overlay"></div>
+        <div class="color-overlay"></div>
       </div>
-    </div>
-    <div class="card-info">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim...
-      <a href="#">Read Article
-        <span class="licon icon-arr icon-black"></span>
-      </a>
-    </div>
-    <div class="utility-info">
-      <ul class="utility-list">
-        <li>
-          <span class="licon icon-like"></span>
-          <a href="#">2</a>
-        </li>
-        <li>
-          <span class="licon icon-com"></span>
-          <a href="#">12</a>
-        </li>
-        <li>
-          <span class="licon icon-dat"></span>03 jun 2017</li>
-        <li>
-          <span class="licon icon-tag"></span>
-          <a href="#">Photos</a>,
-          <a href="#">Nice</a>
-        </li>
-      </ul>
-    </div>
-    <div class="gradient-overlay"></div>
-    <div class="color-overlay"></div>
-  </div>
-  <!-- /.blog-card -->
+      <!-- /.blog-card -->
 
 
 
-
+      <!-- JavaScript Libraries -->
+      <script src="/lib/jquery/jquery.min.js"></script>
+      <script src="/lib/wow/wow.min.js"></script>
+      <script src="/lib/superfish/hoverIntent.js"></script>
+      <script src="/lib/superfish/superfish.min.js"></script>
+      <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+      <script src="/lib/easing/easing.min.js"></script>
+      <script src="/lib/modal-video/js/modal-video.js"></script>
+      <script src="/js/main.js"></script>
 </body>
 
 </html>

@@ -1,71 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include ../partials/header %>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
-  <title>Document</title>
-</head>
 
-<body>
 
-  <div class="container">
-    <h1>
-      <%= msg %>
-    </h1>
-  </div>
-
-  <br/>
-  <div class="ui grid">
-    <% Post.forEach(function(post){%>
-
-      <div class="ui link cards ">
-
-        <div class="card four wide column">
-          <div class="image ui segment">
-            <div class="item">
-              <img class="ui centered rounded image" src="/img/home-bg.jpg">
-            </div>
-
-          </div>
-          <div class="blurring dimmable image">
-            <div class="ui dimmer">
-            </div>
-
-          </div>
-          <div class="content">
-            <a href="/blog/<%= post._id %>" class="header">
-              <%= post.title%>
-            </a>
-          </div>
-          <div class="extra content">
-            <span class="right floated">
-              Created
-              <%= moment(post.date).fromNow() %>
-            </span>
-            <span>
-              <i class="eye icon"></i>
-              <%= post.views%>
-            </span>
-          </div>
+<br />
+<br />
+<br />
+<br />
+<div class="ui grid">
+  <% Post.forEach(function(post){%>
+  <div class="ui link cards ">
+    <div class="card four wide column">
+      <div class="image ui segment">
+        <div class="item">
+          <img src="<%= post.images[0] %>">
         </div>
       </div>
-      <%})%>
-
+      <div class="blurring dimmable image">
+        <div class="ui dimmer">
+        </div>
+      </div>
+      <div class="content">
+        <a href="/blog/<%= post._id %>" class="header">
+          <%= post.title%>
+        </a>
+      </div>
+      <div class="extra content">
+        <span class="right floated">
+          Created
+          <%= moment(post.date).fromNow() %>
+        </span>
+        <span>
+          <i class="eye icon"></i>
+          <%= post.views%>
+        </span>
+      </div>
+    </div>
   </div>
-  <br/>
+  <%})%>
+
+</div>
 
 
-  <a href="/">back...</a>
+<br>
+<br>
 
-  <br/>
-  <a href="/blog/new">Create new post </a>
+<a href="/">back...</a>
 
-
+<br />
+<a href="/blog/new">Create new post </a>
 
 
 </body>
 
 </html>
+
+
+<% include ../partials/footer %>

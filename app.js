@@ -9,19 +9,25 @@ const debug = require("debug")("app:error");
 const db_con = require("debug")("app:db_connected");
 const app_con = require("debug")("app:connected");
 const express = require("express");
-const app = express();
+const session = require("express-session");
+const passport = require("passport");
+LocalStrategy = require("passport-local");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("express-flash");
-const session = require("express-session");
+const User = require("./models/user");
 
 const path = require("path");
 const moment = require("moment");
 
+const app = express();
+
 //requring Routes
-const post = require("./routes/post");
-const about = require("./routes/about");
-const portfolio = require("./routes/portfolio");
+const indexRoutes = require("./routes/index");
+const postRoutes = require("./routes/post");
+const commentsRoutes = require("./routes/comments");
+const aboutRoutes = require("./routes/about");
+const portfolioRoutes = require("./routes/portfolio");
 
 // Connect to mongoDB
 const db = process.env.DB_PASSWOR || "mongodb://localhost:27017/express-test";
@@ -32,10 +38,10 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(() => {
-    db_con("mongoDB connected");
+    console.log("mongoDB connected");
   })
   .catch(err => {
-    debug(
+    console.error(
       `message: ${err.message}  
        codeN:${err.codeName} 
        codeNumber:${err.code} 
@@ -58,27 +64,34 @@ app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+// Passport Config
 app.use(
-  session({
+  require("express-session")({
     secret: process.env.SessionSecret,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(morgan("tiny"));
 app.use(flash());
-
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(422).send({ error: err.message });
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
 });
 
-app.use(post);
-app.use(about);
-app.use(portfolio);
+app.use(indexRoutes);
+app.use("/blog", postRoutes);
+app.use("/blog/:id/comments", commentsRoutes);
+app.use(aboutRoutes);
+app.use(portfolioRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  app_con(`app running on port ${port}`);
+  console.log(`app running on port ${port}`);
 });

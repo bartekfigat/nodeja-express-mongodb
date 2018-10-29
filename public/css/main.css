@@ -14,7 +14,7 @@ li {
 }
 a {
   text-decoration: none;
-  color: #fff;
+  color: #000;
 }
 
 /* #### Style nav bar #### */
@@ -102,4 +102,24 @@ ul.nav_bar li.dropdownIcon {
 .error {
   color: #fff;
   background-color: red;
+}
+
+#footer {
+  position: flex;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  height: 25rem;
+  background-color: rgb(90, 115, 145) !important;
+}
+#carousel img {
+  width: 45%;
+  height: 20em;
+}
+
+#footer-1 {
+  height: 25rem;
+  background-color: rgb(90, 115, 145) !important;
 }

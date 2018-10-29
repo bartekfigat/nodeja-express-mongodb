@@ -1,25 +1,35 @@
+<% include ../partials/header %>
+
 <h1>showe page</h1>
+
+
+
+<div class="container text-center" id="carousel">
+  <% for(var i = 0; i < post.images.length; i++ ) { %>
+  <img class="img-thumbnail" src=" <%= post.images[i] %>">
+  <% } %>
+</div>
+
+
+
+<div class="container">
+  <% post.comments.forEach(function(comment){ %>
+  <div class="media">
+    <div class="media-body">
+      <h5 class="mt-0">
+        <%= comment.author %>
+      </h5>
+      <%= comment.text %>
+    </div>
+  </div>
+  <% }) %>
+</div>
 
 
 <h1>
   <a href="/blog/<%= post._id%>/comments/new">dodaj komętarz...</a>
 </h1>
 
-<p>
-  <%= post.title %> -
-    <%= post.description %> -
-      <%= post.content %>
-</p>
 
-<% post.comments.forEach(function(comment){ %>
 
-  <p>
-    <%= comment.author %> -
-
-  </p>
-
-  <p>
-    <%= comment.text %> -
-  </p>
-
-  <% }) %>
+<% include ../partials/footer %>

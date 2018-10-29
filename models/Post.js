@@ -10,10 +10,7 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: [true, "empty field"]
   },
-  content: {
-    type: String,
-    required: [true, "empty field"]
-  },
+  images: [String],
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

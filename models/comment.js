@@ -7,6 +7,11 @@ const commentSchema = new mongoose.Schema({
   },
   author: {
     type: String,
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String,
     required: true
   }
 });

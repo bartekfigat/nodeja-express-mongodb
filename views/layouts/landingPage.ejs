@@ -5,110 +5,315 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
-  <link rel="stylesheet" type="text/css" href="/css/mediaQuery.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
     crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
-  <title>My first express app</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <title>Document</title>
 </head>
-<nav>
-  <ul class="nav_bar">
-    <li class="nav_right">
-      <a href="/">Famaff</a>
-    </li>
-    <li class="nav_bar_left">
-      <a href="/about">About</a>
-    </li>
-    <li class="nav_bar_left">
-      <a href="/blog">Blog</a>
-    </li>
-    <li class="nav_bar_left">
-      <a href="/portfolio">Portfolio</a>
-    </li>
-    <li class="dropdownIcon">
-      <a href="">&#9776;</a>
-    </li>
-    <li>
-      <i class="fas fa-search"></i>
-    </li>
-  </ul>
-</nav>
-<section class="sec-1">
-  <div class="skils">
-    <ul class="ul-list">
-      <li class="list-skils">Node.js</li>
-      <li class="list-skils">Express.js</li>
-      <li class="list-skils">Mongodb</li>
-    </ul>
-  </div>
-</section>
-
-
-
-
-<!-- <div class="blog-card spring-fever">
-  <div class="title-content">
-    <h3>
-      <a href="#">10 inspiring photos</a>
-    </h3>
-    <div class="intro">
-      <a href="#">Inspiration</a>
-    </div>
-  </div>
-  <div class="card-info">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Ut enim ad minim...
-    <a href="#">Read Article
-      <span class="licon icon-arr icon-black"></span>
-    </a>
-  </div>
-  <div class="utility-info">
-    <ul class="utility-list">
-      <li>
-        <span class="licon icon-like"></span>
-        <a href="#">2</a>
-      </li>
-      <li>
-        <span class="licon icon-com"></span>
-        <a href="#">12</a>
-      </li>
-      <li>
-        <span class="licon icon-dat"></span>03 jun 2017</li>
-      <li>
-        <span class="licon icon-tag"></span>
-        <a href="#">Photos</a>,
-        <a href="#">Nice</a>
-      </li>
-    </ul>
-  </div>
-  <div class="gradient-overlay"></div>
-  <div class="color-overlay"></div>
-</div> -->
-<!-- /.blog-card -->
-
-<div class="container">
-  <div class="post-img">
-    <h1>img here</h1>
-  </div>
-  <div class="title">
-    <ul>
-      <% allTitle.forEach(function(posts){ %>
-        <li class="list-title">
-          <a class="link" href="/blog/<%= posts._id %>">
-            <%= posts.title %>
-          </a>
-        </li>
-
-        <% }) %>
-    </ul>
-  </div>
-</div>
-
-
-
 
 <body>
+
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">FamaFF</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Strona główna<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog">Blog</a>
+        </li>
+
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if(!currentUser){ %>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+
+
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="#">User:
+            <%= currentUser.username %></a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Log out</a>
+        </li>
+
+        <% } %>
+
+
+      </ul>
+    </div>
+  </nav>
+
+
+  <main role="main">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner container">
+        <div class="carousel-item active">
+          <img class="first-slide img-fluid img-thumbnail" src="https://images.unsplash.com/photo-1497348411082-7ab34fa26e2a?auto=format&fit=crop&w=1350&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+            alt="First slide">
+          <div class="container">
+            <div class="carousel-caption text-left">
+              <h1>Example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at
+                eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="second-slide img-fluid img-thumbnail" src="https://images.unsplash.com/photo-1501743411739-de52ea0ce6a0?auto=format&fit=crop&w=1350&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+            alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at
+                eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="third-slide img-fluid img-thumbnail" src="https://images.unsplash.com/photo-1505582866941-6788e0205dd2?auto=format&fit=crop&w=1350&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+            alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption text-right">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at
+                eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+
+
+
+
+    <!-- START THE FEATURETTES -->
+
+
+    <div class="container top">
+      <hr class="featurette-divider">
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Czesi rządzą w Igrzyskach <span class="text-muted">Polonijnych w Toruniu
+            </span></h2>
+          <p class="lead">Rozegrano także turniej badmintona, golfa i piłki ręcznej.
+            Trwają także zmagania w strzelectwie, tenisie stołowym, piłce nożnej, które zostaną zakończone w sobotę.
+            W 24 konkurencjach lekkoatletycznych najlepsza okazała się reprezentacja Litwy, w drugiej kolejności
+            zawodnicy z Czech, w trzeciej drużyna Kanady.
+            Najmłodsza zawodniczka Igrzysk trzyletnia Ukrainka Ewa Horaj wystartowała w rzucie oszczepem.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-fluid mx-auto" src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996"
+            alt="Generic placeholder image">
+        </div>
+      </div>
+      <hr class="featurette-divider">
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Kto ma szansę zarobić więcej? <span class="text-muted">Sam zobacz.</span></h2>
+          <p class="lead">Badania nie pozostawiają wątpliwości – więcej zarabiają ci, którzy… regularnie proszą o
+            podwyżkę.
+            Dane te pewnie nie są specjalnie odkrywcze, ale dają do myślenia.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img class="featurette-image img-fluid mx-auto" src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996"
+            alt="Generic placeholder image">
+        </div>
+      </div>
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Godziwe wynagrodzenie za pracę <span class="text-muted">co to oznacza? </span></h2>
+          <p class="lead">Wymiar płacy musi być adekwatny do rodzaju i ilości pracy, a także do jej jakości
+            i kwalifikacji niezbędnych do jej wykonywania.
+            Pensja powinna mieć godziwą wysokość, tzn. taką, która jest „właściwa, słuszna, rzetelna...</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-fluid mx-auto" src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996"
+            alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Ujawniono odtajnione memorandum <span class="text-muted">w sprawie FBI </span></h2>
+          <p class="lead">Republikanie w Izbie Reprezentantów opublikowali dziś odtajnione przez
+            Biały Dom kontrowersyjne memorandum na temat rzekomego złego nastawienia FBI i resortu sprawiedliwości
+            do prezydenta Donalda Trumpa w sprawie Russiagate...</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img class="featurette-image img-fluid mx-auto" src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996"
+            alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+    </div>
+  </main>
+  <!-- End THE FEATURETTES -->
+
+
+  <!-- ========================================= -->
+
+
+  <!-- Con with ikon -->
+  <div class="container">
+    <div class="row" id="font-row">
+      <div class="col-md-4">
+        <h1 class="font"><i class="far fa-map"></i></h1>
+        <h2>Łatwe dodawanie google map</h2>
+        <p>wysoka rozdzielczość map</p>
+      </div>
+      <div class="col-md-4">
+        <h1 class="font"><i class="fab fa-buysellads"></i></h1>
+        <h2>FamaFF ogłoszenia </h2>
+        <p>w naszym serwisie znajdziesz to czego szukasz</p>
+      </div>
+      <div class="col-md-4">
+        <h1 class="font"><i class="fab fa-sistrix"></i></h1>
+        <h2>Szybkie wyszukiwanie </h2>
+        <p>Zacznij szukać lub załóż konto</p>
+      </div>
+    </div>
+  </div>
+  <!-- End Con with ikon -->
+
+
+  <!-- ========================================= -->
+
+
+  <!--  Start 6-IMG container -->
+  <div class="container-fluid">
+    <div class="row" id="img-row">
+      <div class="col-md-4" id="col-4">
+        <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" alt="gory">
+        <h1>image hover</h1>
+      </div>
+      <div class="col-md-4" id="col-4">
+        <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" alt="las">
+      </div>
+      <div class="col-md-4" id="col-4">
+        <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" alt="poland">
+      </div>
+    </div>
+    <div class="row" id="img-row">
+      <div class="col-md-4" id="col-4">
+        <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" alt="poland">
+      </div>
+      <div class="col-md-4" id="col-4">
+        <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" alt="poland">
+      </div>
+      <div class="col-md-4" id="col-4">
+        <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" alt="poland">
+      </div>
+    </div>
+  </div>
+  <!--  End 6-IMG container -->
+
+
+  <!-- ========================================= -->
+
+
+
+
+
+
+
+
+  <!--  FOOTER  -->
+  <div class="ui inverted vertical footer segment" id="footer">
+    <div class="ui center aligned container">
+      <div class="ui stackable inverted divided grid">
+        <div class="three wide column">
+          <h4 class="ui inverted header">Group 1</h4>
+          <div class="ui inverted link list">
+
+          </div>
+        </div>
+        <div class="three wide column">
+          <h4 class="ui inverted header">Group 2</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Link One</a>
+            <a href="#" class="item">Link Two</a>
+            <a href="#" class="item">Link Three</a>
+            <a href="#" class="item">Link Four</a>
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <h4 class="ui inverted header">FamaFF</h4>
+          <p>FamaFF to wiodący serwis informacyjno ogłoszeniowy. Serwis przeznaczony jest do publikacji ogłoszeń i
+            reklam od osób prywatnych.
+            Strona jest dostosowana do urządzeń mobilnych.
+
+          </p>
+        </div>
+      </div>
+      <div class="ui inverted section divider"></div>
+      <img src="https://d-pt.ppstatic.pl/k/r/1/ba/58/5984bea219e32_p.jpg?1501871996" class="ui centered mini image">
+      <div class="ui horizontal inverted small divided link list">
+        <a class="item" href="#">Skontaktuj się z nami</a>
+        <a class="item" href="#">Regulamin</a>
+        <a class="item" href="#">famaff.com © 2018. Wszelkie prawa zastrzeżone</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- End FOOTER -->
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
 </body>
 
