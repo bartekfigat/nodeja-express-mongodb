@@ -19,3 +19,59 @@
 //   .catch(err => {
 //     console.log(err);
 //   });
+
+
+
+
+router.get("/blog", (req, res, next) => {
+  Post.find({})
+    .limit(10)
+    .skip(0)
+    .then(allPost => {
+      if (allPost) {
+        res.render("blog/index", {
+          Post: allPost,
+          moment: moment
+        });
+      } else if (err || !allPost) {
+        return res.redirect("/");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
+router.get("/api/blog", (req, res, next) => {
+  const page = req.query.page;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+  Post.find({})
+    .limit(limit)
+    .skip(skip)
+    .then(allPost => {
+      res.render("blog/posts", {
+        Post: allPost,
+        moment: moment
+      });
+    })
+});
+
+
+
+ $.ajax({
+      type: "GET",
+      url: "/api/blog?page=2",
+      complete: function() {
+        console.log("process complete");
+      },
+      success: function(data) {
+        if(data.lenght)
+        $("#posts")
+          .slideDown().dealy(500) ;
+        console.log(data.lenght);
+      },
+      errorinu: function() {
+        console.log("process error");
+      }
+    });

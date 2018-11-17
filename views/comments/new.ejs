@@ -1,7 +1,8 @@
 <h1>dodaj komętarz</h1>
 
-<form action="/blog/<%= post._id%>/comments" method="POST">
-  <input type="text" name="text" placeholder="comment...">
-  <input class="form-control" type="text" name="author" placeholder="author">
+<form action="/blog/<%= post._id %>/comments" method="POST">
+  <label for="textField"></label>
+  <textarea name="text" id="textField" cols="30" rows="10"></textarea>
+  <!-- <input type="text" name="text" placeholder="comment..."> -->
   <button>Dodaj komętarz</button>
 </form>

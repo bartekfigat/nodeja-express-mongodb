@@ -5,13 +5,10 @@
 const config = require("config");
 const morgan = require("morgan");
 require("dotenv").config({ path: ".env" });
-const debug = require("debug")("app:error");
-const db_con = require("debug")("app:db_connected");
-const app_con = require("debug")("app:connected");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("express-flash");
@@ -50,15 +47,11 @@ mongoose
     );
   });
 
-// Staic file
-app.use(express.static("./public"));
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
-//Configuration
-//export NODE_ENV=development or NODE_ENV=production
+// Staic file
+app.use(express.static("public"));
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -86,7 +79,7 @@ app.use((req, res, next) => {
 });
 
 app.use(indexRoutes);
-app.use("/blog", postRoutes);
+app.use(postRoutes);
 app.use("/blog/:id/comments", commentsRoutes);
 app.use(aboutRoutes);
 app.use(portfolioRoutes);

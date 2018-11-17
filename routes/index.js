@@ -1,10 +1,27 @@
+require("dotenv").config({ path: ".env" });
 const express = require("express");
 const passport = require("passport");
 const Post = require("../models/Post");
 const User = require("../models/user");
+
+const cloudinary = require("cloudinary");
+const multer = require("multer");
 const flash = require("express-flash");
 
 const router = express.Router();
+
+// Post.find(
+//   {},
+//   { title: 1, _id: 0 },
+//   { description: 1, _id: 0 },
+//   (err, titles) => {}
+// )
+//   .then(titles => {
+//     console.log(titles);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -13,14 +30,16 @@ const isLoggedIn = (req, res, next) => {
   res.redirect("/login");
 };
 
+//  { title: 1, _id: 0 }
 //root route
 router.get("/", (req, res) => {
   console.log(req.user);
   Post.find({})
-    .then(allTitle => {
-      if (allTitle) {
+    .then(post => {
+      if (post) {
+        console.log(post[1].title);
         res.render("layouts/landingPage", {
-          allTitle: allTitle,
+          post: post,
           currentUser: req.user
         });
       } else {

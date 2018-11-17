@@ -4,41 +4,19 @@
 
 <br />
 <br />
+
+
 <br />
+
+
 <br />
-<div class="ui grid">
-  <% Post.forEach(function(post){%>
-  <div class="ui link cards ">
-    <div class="card four wide column">
-      <div class="image ui segment">
-        <div class="item">
-          <img src="<%= post.images[0] %>">
-        </div>
-      </div>
-      <div class="blurring dimmable image">
-        <div class="ui dimmer">
-        </div>
-      </div>
-      <div class="content">
-        <a href="/blog/<%= post._id %>" class="header">
-          <%= post.title%>
-        </a>
-      </div>
-      <div class="extra content">
-        <span class="right floated">
-          Created
-          <%= moment(post.date).fromNow() %>
-        </span>
-        <span>
-          <i class="eye icon"></i>
-          <%= post.views%>
-        </span>
-      </div>
-    </div>
-  </div>
-  <%})%>
+<div class="ui grid" id="posts">
+
+  <% include posts %>
 
 </div>
+
+
 
 
 <br>
@@ -48,6 +26,8 @@
 
 <br />
 <a href="/blog/new">Create new post </a>
+
+<button class="btn btn-lg btn-primary btn-block" id="loadMore" type="submit"> Load more...</button>
 
 
 </body>

@@ -1,10 +1,15 @@
 require("dotenv").config({ path: ".env" });
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const moment = require("moment");
 const Post = require("../models/Post");
 const multer = require("multer");
 const cloudinary = require("cloudinary");
+
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const geocodingClient = mbxGeocoding({
+  accessToken: process.env.map_Box_Token
+});
 
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -27,9 +32,10 @@ cloudinary.config({
   api_secret: process.env.api_secret
 });
 
-router.get("/", (req, res) => {
-  console.log(req.user);
+router.get("/blog", (req, res, next) => {
   Post.find({})
+    .limit(10)
+    .skip(0)
     .then(allPost => {
       if (allPost) {
         res.render("blog/index", {
@@ -45,7 +51,23 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", isLoggedIn, upload.any("images"), (req, res) => {
+router.get("/api/blog", (req, res, next) => {
+  const page = req.query.page;
+  const limit = 10;
+  const skip = (page - 1) * limit;
+  Post.find({})
+    .limit(limit)
+    .skip(skip)
+    .then(allPost => {
+      console.log(allPost);
+      res.render("blog/posts", {
+        Post: allPost,
+        moment: moment
+      });
+    });
+});
+
+router.post("/blog", isLoggedIn, upload.any("images"), (req, res) => {
   var images = [];
 
   if (typeof req.files !== "undefined") {
@@ -65,11 +87,11 @@ router.post("/", isLoggedIn, upload.any("images"), (req, res) => {
   }
 });
 
-router.get("/new", (req, res) => {
+router.get("/blog/new", (req, res) => {
   res.render("blog/new");
 });
 
-router.get("/:id", (req, res) => {
+router.get("/blog/:id", (req, res) => {
   const id = req.params.id;
 
   Post.findById(id)
@@ -92,18 +114,35 @@ function createAdvert(req, res, images) {
   let title = req.body.title;
   let description = req.body.description;
   let content = req.body.content;
+  let location = req.body.location;
+
+  geocodingClient
+    .forwardGeocode({
+      query: location,
+      limit: 1
+    })
+    .send()
+    .then(response => {
+      const match = response.body;
+      req.body.coordinates = match.body.featuers[0].geometry.coordinates;
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
 
   const newPost = {
     title: title,
     description: description,
     content: content,
-    images: images
+    images: images,
+    geocodingClient: geocodingClient
   };
+
   Post.create(newPost)
     .then(newCreatedPost => {
       if (newCreatedPost) {
         res.redirect("/blog");
-        console.log(newCreatedPost);
+        console.log(newPost.coordinates);
       } else {
         res.send("where is the post");
       }

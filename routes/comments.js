@@ -34,26 +34,27 @@ router.post("/", isLoggedIn, (req, res, next) => {
   //create new comment
   //connect new comment to blog
   //redirect blog/show
-  Post.findById(req.params.id)
-    .then(post => {
+  Post.findById(req.params.id, (err, post) => {
+    if (err) {
+      console.log(err);
+      res.redirect("/blog");
+    } else {
       let text = req.body.text;
-      let author = req.body.author;
-
-      const allComment = {
-        text: text,
-        author: author
-      };
-      Comment.create(allComment).then(comment => {
-        if (!comment) {
+      Comment.create({ text: text }, (err, comment) => {
+        if (err) {
+          console.log(err);
         } else {
-          console.log(comment);
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+          comment.save();
           post.comments.push(comment);
           post.save();
+          console.log(comment);
           res.redirect("/blog/" + post._id);
         }
       });
-    })
-    .catch(next);
+    }
+  });
 });
 
 module.exports = router;
