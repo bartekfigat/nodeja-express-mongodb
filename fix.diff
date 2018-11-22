@@ -1,0 +1,84 @@
+diff --git a/routes/post.js b/routes/post.js
+index dec77e5..80642df 100644
+--- a/routes/post.js
++++ b/routes/post.js
+@@ -124,34 +124,34 @@ function createAdvert(req, res, images) {
+     .send()
+     .then(response => {
+       const match = response.body;
+-      req.body.coordinates = match.body.featuers[0].geometry.coordinates;
++      const coordinates = match.features[0].geometry.coordinates;
++
++      const newPost = {
++        title: title,
++        description: description,
++        content: content,
++        images: images,
++        coordinates: coordinates
++      };
++
++      Post.create(newPost)
++        .then(newCreatedPost => {
++          if (newCreatedPost) {
++            res.redirect("/blog");
++            console.log(newPost.coordinates);
++          } else {
++            res.send("where is the post");
++          }
++        })
++        .catch(err => {
++          req.flash("error", err.message);
++          res.redirect("/blog/new");
++          console.error(err.message);
++        });
+     })
+     .catch(err => {
+       console.log(err.message);
+     });
+-
+-  const newPost = {
+-    title: title,
+-    description: description,
+-    content: content,
+-    images: images,
+-    geocodingClient: geocodingClient
+-  };
+-
+-  Post.create(newPost)
+-    .then(newCreatedPost => {
+-      if (newCreatedPost) {
+-        res.redirect("/blog");
+-        console.log(newPost.coordinates);
+-      } else {
+-        res.send("where is the post");
+-      }
+-    })
+-    .catch(err => {
+-      req.flash("error", err.message);
+-      res.redirect("/blog/new");
+-      console.error(err.message);
+-    });
+ }
+ 
+ module.exports = router;
+diff --git a/views/blog/show.ejs b/views/blog/show.ejs
+index c071d00..6fdd8e9 100644
+--- a/views/blog/show.ejs
++++ b/views/blog/show.ejs
+@@ -22,15 +22,14 @@
+ 
+ <script>
+   var post = [<%- JSON.stringify(post) %>];
+-  console.log(post);
+   mapboxgl.accessToken =
+     "pk.eyJ1IjoiZmlnYXQiLCJhIjoiY2pvaXY3NTN6MGRpNzN3cXNoaXNpNjEyMSJ9.jiyYnNApApmlEs-jamTIHQ";
+ 
+   var map = new mapboxgl.Map({
+     container: "map",
+     style: "mapbox://styles/mapbox/light-v9",
+-    center:  post.coordinates,
+-    zoom: 3
++    center:  post[0].coordinates,
++    zoom: 11
+ 
+   });

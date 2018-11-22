@@ -34,6 +34,38 @@ a {
 .error {
   color: #fff;
   background-color: red;
+  font-family: "Raleway", sans-serif;
+}
+
+.form-control {
+  background-color: rgb(240, 248, 255);
+  border: none;
+  color: #000;
+  padding: 1em;
+}
+
+label[for="description-text"],
+label[for="title-text"],
+label[for="location-text"],
+label[for="my-file"] {
+  cursor: pointer;
+  font-size: 1.2em;
+  margin: 0.2em;
+  font-family: "Raleway", sans-serif;
+}
+
+#title-text::before {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid #555;
+}
+
+#title-text::after {
+  width: 10px;
+  height: 10px;
+  background-color: #000;
 }
 
 #footer {
@@ -62,10 +94,9 @@ a {
 }
 
 .marker {
+  display: block;
   background-image: url("/img/mapbox-icon.png");
   background-size: cover;
-  width: 50px;
-  height: 50px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -77,4 +108,35 @@ a {
 .mapboxgl-popup-content {
   text-align: center;
   font-family: "Open Sans", sans-serif;
+}
+
+.image-map {
+  width: 5%;
+}
+
+.input-file-container {
+  position: relative;
+  width: 225px;
+}
+.js .input-file-trigger {
+  display: block;
+  padding: 14px 45px;
+  border: solid 1px rgb(181, 181, 181);
+  color: #000;
+  font-size: 1em;
+  transition: all 0.4s;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: "Abel", sans-serif;
+  font-weight: 100;
+}
+
+.js .input-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 225px;
+  opacity: 0;
+  padding: 14px 0;
+  cursor: pointer;
 }

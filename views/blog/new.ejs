@@ -1,40 +1,69 @@
 <% include ../partials/header %>
-
 <div class="container">
-  <form action="/blog" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-      <input type="text" name="title" placeholder="title" />
-    </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form action="/blog" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title-text">Title:</label>
+          <input
+            id="title-text"
+            type="text"
+            name="title"
+            class="form-control"
+            placeholder="title"
+          />
+        </div>
 
-    <div class="form-group">
-      <input type="text" name="description" placeholder="description" />
-    </div>
+        <div class="form-group">
+          <label for="description-text">Description:</label>
+          <textarea
+            id="description-text"
+            class="form-control"
+            name="description"
+            id="textField"
+            cols="30"
+            rows="10"
+            placeholder="description"
+          ></textarea>
+        </div>
 
-    <div class="form-group">
-      <input
-        class="form-control"
-        type="text"
-        name="location"
-        placeholder="location"
-      />
-    </div>
+        <div class="form-group">
+          <label for="location-text">Location:</label>
+          <input
+            id="location-text geocoder"
+            class="form-control geocoder"
+            type="text"
+            name="location"
+            placeholder="location"
+          />
+        </div>
 
-    <div class="form-group">
-      <input
-        class="form-control"
-        type="file"
-        name="images"
-        multiple="multiple"
-        required
-      />
-    </div>
+        <div class="form-group input-file-container">
+          <label for="my-file" class="input-file-trigger" tabindex="0"
+            >Select a images...</label
+          >
+          <input
+            id="my-file"
+            class="form-control-file input-file"
+            type="file"
+            name="images"
+            multiple="multiple"
+            required
+          />
+        </div>
 
-    <div class="form-group">
-      <button class="btn btn-lg btn-primary btn-block">Zatwierdź</button>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block" >Submit</button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
 
-<a href="/blog">back...</a>
+  <a href="/blog">back...</a>
 
-<% include ../partials/footer %>
+
+  
+
+  <% include ../partials/footer %>
+</div>

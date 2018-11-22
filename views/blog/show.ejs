@@ -21,32 +21,34 @@
 <h1><a href="/blog/<%= post._id%>/comments/new">dodaj komętarz...</a></h1>
 
 <script>
-  var post = [<%- JSON.stringify(post) %>];
-  console.log(post);
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiZmlnYXQiLCJhIjoiY2pvaXY3NTN6MGRpNzN3cXNoaXNpNjEyMSJ9.jiyYnNApApmlEs-jamTIHQ";
+    var post = <%- JSON.stringify(post) %>;
+    console.log(post);
 
-  var map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/light-v9",
-    center:  post.coordinates,
-    zoom: 3
+    console.log(post.coordinates);
+    mapboxgl.accessToken =
+      "pk.eyJ1IjoiZmlnYXQiLCJhIjoiY2pvaXY3NTN6MGRpNzN3cXNoaXNpNjEyMSJ9.jiyYnNApApmlEs-jamTIHQ";
 
-  });
+    var map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v9",
+      center:  post.coordinates,
+      zoom: 11
 
-  console.log(map.center);
+    });
 
-  var el = document.createElement("div");
-  el.className = "marker";
+  // add markers to map
 
-  // make a marker for each feature and add to the map
-  new mapboxgl.Marker(el)
-    .setLngLat(post.coordinates)
-    .setPopup(
-      new mapboxgl.Popup({ offset: 25 }) // add popups
-        .setHTML("<h3>" + post.title + "</h3><p>" + post.location + "</p>")
-    )
-    .addTo(map);
+    var el = document.createElement("div");
+    el.className = "marker";
+    // make a marker for each feature and add to the map
+    new mapboxgl.Marker(el)
+      .setLngLat(post.coordinates)
+      .setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+          .setHTML(` <h3>  ${post.title} </h3> <p>  ${post.coordinates}  </p>`)
+      )
+      // <div class='image-map'> <img src="${post[0].images[0]}"></div>
+      .addTo(map);
 </script>
 
 <% include ../partials/footer %>

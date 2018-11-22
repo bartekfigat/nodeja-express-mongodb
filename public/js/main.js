@@ -24,3 +24,9 @@ $(document).ready(function($) {
     });
   });
 });
+
+document.querySelector("html").classList.add("js");
+
+var fileInput = document.querySelector(".input-file"),
+  button = document.querySelector(".input-file-trigger"),
+  the_return = document.querySelector(".file-return");

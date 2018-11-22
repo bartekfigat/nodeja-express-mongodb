@@ -1,11 +1,12 @@
 <% include ../partials/header %>
-
+<% Post %>
 
 
 <br />
 <br />
 
-
+<div id="map">map</div>
+<div id="map-1">map-1</div>
 <br />
 
 
@@ -15,9 +16,6 @@
   <% include posts %>
 
 </div>
-
-
-
 
 <br>
 <br>
@@ -29,7 +27,59 @@
 
 <button class="btn btn-lg btn-primary btn-block" id="loadMore" type="submit"> Load more...</button>
 
+<script>
+  var post = <%- JSON.stringify(Post) %>;
+console.log(post);
+for(let i = 0; i < post.length; i++){
+  console.log(post[i].coordinates);
+}
+ 
+ 
+ 
 
+
+
+ 
+  
+
+
+// const placesFilter = post.filter((places,i) => {
+//     console.log(places[i].coordinates);  });
+
+
+//   console.log(placesFilter);
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoiZmlnYXQiLCJhIjoiY2pvaXY3NTN6MGRpNzN3cXNoaXNpNjEyMSJ9.jiyYnNApApmlEs-jamTIHQ";
+   
+   
+ 
+  var map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v9",
+    center:  post[i].coordinates,
+    zoom: 11,
+    zooming: true
+  });
+
+  const features =  map.queryRenderedFeatures(
+    post[0][0].coordinates
+  );
+  console.log(features);
+
+// add markers to map
+
+  var el = document.createElement("div");
+  el.className = "marker";
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    .setLngLatLngLat(post[i].coordinates)
+    .setPopup(
+      new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(` <h3>  ${post[i].title} </h3> <p>  ${post[i].coordinates}  </p>`)
+    )
+    // <div class='image-map'> <img src="${post[0].images[0]}"></div>
+    .addTo(map);
+</script>
 </body>
 
 </html>

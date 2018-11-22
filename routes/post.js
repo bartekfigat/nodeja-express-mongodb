@@ -59,7 +59,6 @@ router.get("/api/blog", (req, res, next) => {
     .limit(limit)
     .skip(skip)
     .then(allPost => {
-      console.log(allPost);
       res.render("blog/posts", {
         Post: allPost,
         moment: moment
@@ -124,33 +123,30 @@ function createAdvert(req, res, images) {
     .send()
     .then(response => {
       const match = response.body;
-      req.body.coordinates = match.body.featuers[0].geometry.coordinates;
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
+      const coordinates = match.features[0].geometry.coordinates;
 
-  const newPost = {
-    title: title,
-    description: description,
-    content: content,
-    images: images,
-    geocodingClient: geocodingClient
-  };
+      const newPost = {
+        title: title,
+        description: description,
+        content: content,
+        images: images,
+        coordinates: coordinates
+      };
 
-  Post.create(newPost)
-    .then(newCreatedPost => {
-      if (newCreatedPost) {
-        res.redirect("/blog");
-        console.log(newPost.coordinates);
-      } else {
-        res.send("where is the post");
-      }
-    })
-    .catch(err => {
-      req.flash("error", err.message);
-      res.redirect("/blog/new");
-      console.error(err.message);
+      Post.create(newPost)
+        .then(newCreatedPost => {
+          if (newCreatedPost) {
+            res.redirect("/blog");
+            console.log(newPost.coordinates);
+          } else {
+            res.send("where is the post");
+          }
+        })
+        .catch(err => {
+          // req.flash("error", err.message);
+          // res.redirect("/blog/new");
+          console.error(err.message);
+        });
     });
 }
 
