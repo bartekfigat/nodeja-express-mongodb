@@ -95,6 +95,8 @@ label[for="my-file"] {
 
 .marker {
   display: block;
+  width: 50px;
+  height: 50px;
   background-image: url("/img/mapbox-icon.png");
   background-size: cover;
   border-radius: 50%;
