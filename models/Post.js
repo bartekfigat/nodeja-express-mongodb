@@ -11,6 +11,7 @@ const PostSchema = new mongoose.Schema({
     required: [true, "empty field"]
   },
   images: [String],
+  location: String,
   coordinates: Array,
   comments: [
     {

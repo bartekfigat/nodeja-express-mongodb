@@ -5,8 +5,8 @@ const moment = require("moment");
 const Post = require("../models/Post");
 const multer = require("multer");
 const cloudinary = require("cloudinary");
-
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+
 const geocodingClient = mbxGeocoding({
   accessToken: process.env.map_Box_Token
 });
@@ -34,12 +34,13 @@ cloudinary.config({
 
 router.get("/blog", (req, res, next) => {
   Post.find({})
-    .limit(10)
     .skip(0)
-    .then(allPost => {
-      if (allPost) {
+    .limit(10)
+    .then(result => {
+      if (result) {
+        console.log(result[0].date);
         res.render("blog/index", {
-          Post: allPost,
+          Post: result,
           moment: moment
         });
       } else {
@@ -52,19 +53,39 @@ router.get("/blog", (req, res, next) => {
 });
 
 router.get("/api/blog", (req, res, next) => {
+  console.log(req.query);
   const page = req.query.page;
   const limit = 10;
-  const skip = (page - 1) * limit;
+  const skip = parseInt((page - 1) * limit);
+
   Post.find({})
     .limit(limit)
     .skip(skip)
-    .then(allPost => {
+    .then(result => {
       res.render("blog/posts", {
-        Post: allPost,
-        moment: moment
+        Post: result,
+        moment: moment,
+        skip: skip
       });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
+
+//   Promise.all([
+//     Post.count(),
+//     Post.find({}, { skip: skip, count: count })
+//       .then((count, result) => {
+//         res.render("blog/posts", {
+//           count: count,
+//           Post: result,
+//           moment: moment
+//         });
+//       })
+//       .catch(err => console.log(err))
+//   ]);
+// });
 
 router.post("/blog", isLoggedIn, upload.any("images"), (req, res) => {
   var images = [];
@@ -125,12 +146,15 @@ function createAdvert(req, res, images) {
       const match = response.body;
       const coordinates = match.features[0].geometry.coordinates;
 
+      console.log(match);
+      console.log(coordinates);
       const newPost = {
         title: title,
         description: description,
         content: content,
         images: images,
-        coordinates: coordinates
+        coordinates: coordinates,
+        location: location
       };
 
       Post.create(newPost)

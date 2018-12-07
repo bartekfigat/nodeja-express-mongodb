@@ -6,7 +6,8 @@
   <% for(var i = 0; i < post.images.length; i++ ) { %>
   <img class="img-thumbnail" src=" <%= post.images[i] %>" /> <% } %>
 </div>
-<div id="map">map</div>
+<div class="map-cont"><div id="map">map</div></div>
+
 <div class="container">
   <% post.comments.forEach(function(comment){ %>
   <div class="media">
@@ -21,34 +22,33 @@
 <h1><a href="/blog/<%= post._id%>/comments/new">dodaj komętarz...</a></h1>
 
 <script>
+
     var post = <%- JSON.stringify(post) %>;
     console.log(post);
-
     console.log(post.coordinates);
+
     mapboxgl.accessToken =
       "pk.eyJ1IjoiZmlnYXQiLCJhIjoiY2pvaXY3NTN6MGRpNzN3cXNoaXNpNjEyMSJ9.jiyYnNApApmlEs-jamTIHQ";
-
     var map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v9",
       center:  post.coordinates,
-      zoom: 11
-
+      zoom: 11,
+      animate: true
     });
-
   // add markers to map
-
     var el = document.createElement("div");
     el.className = "marker";
     // make a marker for each feature and add to the map
+
     new mapboxgl.Marker(el)
       .setLngLat(post.coordinates)
       .setPopup(
         new mapboxgl.Popup({ offset: 25 }) // add popups
-          .setHTML(` <h3>  ${post.title} </h3> <p>  ${post.coordinates}  </p>`)
+          .setHTML(` <h3>  ${post.title} </h3> <p>  ${post.location}  </p>`)
       )
       // <div class='image-map'> <img src="${post[0].images[0]}"></div>
-      .addTo(map);
+      .addTo(map.addControl(new mapboxgl.NavigationControl()));
 </script>
 
 <% include ../partials/footer %>

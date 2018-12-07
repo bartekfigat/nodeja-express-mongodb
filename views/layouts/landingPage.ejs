@@ -146,7 +146,9 @@
       </div>
 
       <!-- START THE FEATURETTES -->
-
+      <% if(!post.length){%>
+      <h1>no data</h1>
+      <% }else{ %>
       <div class="container top">
         <hr class="featurette-divider" />
         <div class="row featurette">
@@ -161,7 +163,7 @@
           </div>
           <div class="col-md-5">
             <img
-              class="featurette-image img-fluid mx-auto"
+              class="featurette-image  mx-auto"
               src="<%= post[0].images[0] %>"
               alt="Generic placeholder image"
             />
@@ -230,6 +232,8 @@
 
         <hr class="featurette-divider" />
       </div>
+
+      <%}%>
     </main>
     <!-- End THE FEATURETTES -->
 

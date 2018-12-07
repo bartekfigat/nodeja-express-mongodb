@@ -13,6 +13,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("express-flash");
 const User = require("./models/user");
+const cors = require("cors");
 
 const path = require("path");
 const moment = require("moment");
@@ -54,6 +55,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // Body parser middleware
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));

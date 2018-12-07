@@ -35,6 +35,7 @@ const isLoggedIn = (req, res, next) => {
 router.get("/", (req, res) => {
   console.log(req.user);
   Post.find({})
+    .sort({ title: -1 })
     .then(post => {
       if (post) {
         console.log(post[1].title);

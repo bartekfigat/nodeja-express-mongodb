@@ -1,21 +1,23 @@
 $(document).ready(function($) {
-  $("#loadMore").one("click", function(e) {
+  var page = 1;
+  $("#loadMore").on("click", function(e) {
     e.preventDefault();
     e.stopPropagation();
     console.log("click");
 
     $.ajax({
       type: "GET",
-      url: "/api/blog?page=2",
+      url: `/api/blog?page=${page + 1}`,
       complete: function() {
         console.log("process complete");
       },
       success: function(data) {
-        if (data.lenght !== 0) {
+        if (data.length !== 0) {
           $("#posts").append(data);
+          page += 1;
           console.log("done");
-        } else if (data.lenght == 0) {
-          console.log("error");
+        } else if (data.length == 0) {
+          $("#loadMore").css("display", "none");
         }
       },
       errorinu: function() {
@@ -24,6 +26,24 @@ $(document).ready(function($) {
     });
   });
 });
+
+// document.getElementById("loadMore").addEventListener("click", getPosts);
+
+// function getPosts() {
+//   fetch("/api/blog?skip=0&limit=10", {
+//     method: "GET"
+//   })
+//     .then(res => {
+//       return res.post;
+//     })
+//     .then(data => {
+//       console.log(data);
+//       // document.getElementById("posts").appendChild(data);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// }
 
 document.querySelector("html").classList.add("js");
 

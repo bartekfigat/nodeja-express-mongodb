@@ -16,6 +16,12 @@ a {
   text-decoration: none;
   color: #000;
 }
+
+.bg-dark {
+  background-color: #32aa7c !important;
+  padding: 1em;
+  font-size: 1.1em;
+}
 .featurette-image {
   border-radius: 5px;
   box-shadow: 0px 0px 28px rgba(0, 0, 0, 0.1);
@@ -89,13 +95,20 @@ label[for="my-file"] {
 }
 
 #map {
-  width: 40%;
+  width: 100%;
   height: 60%;
+}
+.map-cont {
+  display: block;
+  width: 40%;
+  height: 70%;
 }
 
 .marker {
   display: block;
-  background-image: url("/img/mapbox-icon.png");
+  width: 50px;
+  height: 50px;
+  background-image: url("/img/pobrane.png");
   background-size: cover;
   border-radius: 50%;
   cursor: pointer;
@@ -139,4 +152,88 @@ label[for="my-file"] {
   opacity: 0;
   padding: 14px 0;
   cursor: pointer;
+}
+/* ====================== */
+
+.cards {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.card > .content > a.header,
+.ui.cards > .card > .content > a.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 1;
+}
+.image .item img {
+  width: 100%;
+  height: 250px;
+  position: flex;
+  border-radius: 5px;
+}
+
+/* ================ */
+#slider img {
+  width: 960px;
+  height: 500px;
+}
+
+#hero {
+  width: 960px;
+  height: 500px;
+  position: relative;
+  margin: 50px auto;
+  margin-bottom: 0;
+}
+#slider {
+  width: 960px;
+  height: 500px;
+  position: absolute;
+  overflow: hidden;
+}
+#next {
+  font-size: 20px;
+  text-align: center;
+  line-height: 60px;
+  height: 60px;
+  width: 60px;
+  color: azure;
+  background-color: aquamarine;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 250px;
+  right: 0;
+  z-index: 99;
+  opacity: 0;
+}
+#prev {
+  font-size: 20px;
+  text-align: center;
+  line-height: 60px;
+  height: 60px;
+  width: 60px;
+  color: azure;
+  background-color: aquamarine;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 250px;
+  left: 0;
+  z-index: 99;
+  opacity: 0;
+}
+#hero:hover #next {
+  opacity: 1;
+  transition: all 0.8s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+}
+#hero:hover #prev {
+  opacity: 1;
+  transition: all 0.8s ease-out;
+  -webkit-transition: all 0.5s ease-out;
 }
