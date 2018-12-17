@@ -1,6 +1,9 @@
 require("dotenv").config({ path: ".env" });
 const express = require("express");
 const passport = require("passport");
+const nodemailer = require("nodemailer");
+const sgTransport = require("nodemailer-sendgrid-transport");
+const jwt = require("jsonwebtoken");
 const Post = require("../models/Post");
 const User = require("../models/user");
 
@@ -9,6 +12,15 @@ const multer = require("multer");
 const flash = require("express-flash");
 
 const router = express.Router();
+
+var options = {
+  auth: {
+    api_user: process.env.user_Sendgrid,
+    api_key: process.env.api_key_Sendgrid
+  }
+};
+
+var client = nodemailer.createTransport(sgTransport(options));
 
 // Post.find(
 //   {},
@@ -53,27 +65,106 @@ router.get("/", (req, res) => {
 });
 
 //AUTH ROUTS
+//User Registeration Route
 router.get("/register", (req, res) => {
   res.render("register");
 });
 //sing up logic
 router.post("/register", (req, res) => {
+  let username = req.body.username;
+  let useremail = req.body.useremail;
+  let password = req.body.password;
+
   const newUser = new User({
-    username: req.body.username,
-    useremail: req.body.useremail
+    username: _id,
+    useremail: useremail,
+    authToken: jwt.sign(
+      {
+        sub: username,
+        iat: new Date().getTime(), //current time
+        exp: new Date().setDate(new Date().getDate() + 1) //current time + 1day ahead
+      },
+      "my_secret_key"
+    )
   });
-  User.register(newUser, req.body.password, (err, user) => {
+
+  let email = {
+    from: "Localhost, bartek_19_83@hotmail.com",
+    to: `${newUser.useremail}`,
+    subject: "Hello",
+    text: `Hello ${
+      newUser.username
+    } , thank you for registering. Please click on the following to complete your activation: http://localhost:3000/activate/${
+      newUser.authToken
+    }`,
+    html: `Hello <strong>${newUser.username}</strong>.
+              Thank you for registering at localhost.com. Please click the link below to complete yor activation
+              <a href='http://localhost:3000/activate/${
+                newUser.authToken
+              }'> http://localhost:3000/activate</a>'`
+  };
+
+  client.sendMail(email, function(err, info) {
     if (err) {
       console.log(err);
-      req.flash("error", err.message);
-      return res.render("register");
+    } else {
+      console.log("Message sent: " + info.response);
+      User.register(newUser, req.body.password, (err, user) => {
+        if (err) {
+          console.log(err);
+          req.flash("error", err.message);
+          return res.render("register");
+        }
+      });
     }
-    passport.authenticate("local")(req, res, () => {
-      res.redirect("/blog");
-    });
   });
+  // passport.authenticate("local")(req, res, () => {
+  //   res.redirect("/blog");
 });
 
+// ===================
+
+router.put("/activate/:token", (req, res) => {
+  User.findOne({ authToken: req.params.token }, (err, user) => {
+    if (err || !user) {
+      console.error(err);
+    } else {
+      const token = req.params.token;
+      jwt.verify(token, secret, (err, decoded) => {
+        if (err || !user) {
+          console.log(err);
+        } else {
+          user.authToken = false;
+          user.isAuthenticated = true;
+          user.save(err => {
+            if (err) {
+              console.log(err);
+            } else {
+              let email = {
+                from: "Localhost, bartek_19_83@hotmail.com",
+                to: `${newUser.useremail}`,
+                subject: "Hello Account Activated",
+                text: `Hello ${
+                  newUser.username
+                }.Your account has benn successfully activated`,
+                html: `Hello <strong>${
+                  newUser.username
+                }</strong>.Your account has benn successfully activated`
+              };
+              client.sendMail(email, function(err, info) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log("Message sent: " + info.response);
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+});
 //================Login==================
 router.get("/login", (req, res) => {
   res.render("login");

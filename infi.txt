@@ -136,3 +136,44 @@ $.ajax({
   </div>
 </div>
 <%})%>
+
+
+
+// ===================
+  User.findOne(
+    { authToken: req.query.token },
+    (err, user)
+      .then(user => {
+        user.isAuthenticated = true;
+        user.save(err => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("succesfully updated user");
+          console.log(user);
+          const authenticationURL =
+            "http://localhost:3000/verify_email?token=" + newUser.authToken;
+          sendgrid.send(
+            {
+              to: useremail,
+              from: "bartek_19_83@hotmail.com",
+              subject: "Confirm your email",
+              html:
+                '<a target=_blank href="' +
+                authenticationURL +
+                '">Confirm your email</a>'
+            },
+            function(err, json) {
+              if (err) {
+                return console.error(err);
+              }
+              console.log(json);
+            }
+          );
+        });
+      })
+      .then({})
+      .catch(err => {
+        console.error(err);
+      })
+  );

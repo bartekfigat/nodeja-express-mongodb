@@ -146,94 +146,92 @@
       </div>
 
       <!-- START THE FEATURETTES -->
-      <% if(!post.length){%>
-      <h1>no data</h1>
-      <% }else{ %>
-      <div class="container top">
-        <hr class="featurette-divider" />
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading"><%= post[0].title %></h2>
-            <p class="lead"><%= post[0].description%></p>
-            <div class="float-right">
-              <span class="text-muted">
-                <i class="far fa-comments"></i><%= post[0].comments.length %>
-              </span>
+
+      <!--
+        <div class="container top">
+          <hr class="featurette-divider" />
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading"><%= post[0].title %></h2>
+              <p class="lead"><%= post[0].description%></p>
+              <div class="float-right">
+                <span class="text-muted">
+                  <i class="far fa-comments"></i><%= post[0].comments.length %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <img
+                class="featurette-image  mx-auto"
+                src="<%= post[0].images[0] %>"
+                alt="Generic placeholder image"
+              />
             </div>
           </div>
-          <div class="col-md-5">
-            <img
-              class="featurette-image  mx-auto"
-              src="<%= post[0].images[0] %>"
-              alt="Generic placeholder image"
-            />
-          </div>
-        </div>
-        <hr class="featurette-divider" />
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading"><%= post[1].title %></h2>
-            <p class="lead"><%= post[1].description%></p>
-            <div class="float-right">
-              <span class="text-muted">
-                <i class="far fa-comments"></i><%= post[1].comments.length %>
-              </span>
+          <hr class="featurette-divider" />
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading"><%= post[1].title %></h2>
+              <p class="lead"><%= post[1].description%></p>
+              <div class="float-right">
+                <span class="text-muted">
+                  <i class="far fa-comments"></i><%= post[1].comments.length %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <img
+                class="featurette-image img-fluid mx-auto"
+                src="<%= post[1].images[0] %>"
+                alt="Generic placeholder image"
+              />
             </div>
           </div>
-          <div class="col-md-5 order-md-1">
-            <img
-              class="featurette-image img-fluid mx-auto"
-              src="<%= post[1].images[0] %>"
-              alt="Generic placeholder image"
-            />
-          </div>
-        </div>
-        <hr class="featurette-divider" />
+          <hr class="featurette-divider" />
 
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading"><%= post[2].title %></h2>
-            <p class="lead"><%= post[2].description%></p>
-            <div class="float-right">
-              <span class="text-muted">
-                <i class="far fa-comments"></i><%= post[2].comments.length %>
-              </span>
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading"><%= post[2].title %></h2>
+              <p class="lead"><%= post[2].description%></p>
+              <div class="float-right">
+                <span class="text-muted">
+                  <i class="far fa-comments"></i><%= post[2].comments.length %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <img
+                class="featurette-image img-fluid mx-auto"
+                src="<%= post[2].images[0] %>"
+                alt="Generic placeholder image"
+              />
             </div>
           </div>
-          <div class="col-md-5">
-            <img
-              class="featurette-image img-fluid mx-auto"
-              src="<%= post[2].images[0] %>"
-              alt="Generic placeholder image"
-            />
-          </div>
-        </div>
 
-        <hr class="featurette-divider" />
+          <hr class="featurette-divider" />
 
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading"><%= post[3].title %></h2>
-            <p class="lead"><%= post[3].description%></p>
-            <div class="float-right">
-              <span class="text-muted">
-                <i class="far fa-comments"></i> <%=post[3].comments.length %>
-              </span>
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading"><%= post[3].title %></h2>
+              <p class="lead"><%= post[3].description%></p>
+              <div class="float-right">
+                <span class="text-muted">
+                  <i class="far fa-comments"></i> <%=post[3].comments.length %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <img
+                class="featurette-image img-fluid mx-auto"
+                src="<%= post[3].images[0] %>"
+                alt="Generic placeholder image"
+              />
             </div>
           </div>
-          <div class="col-md-5 order-md-1">
-            <img
-              class="featurette-image img-fluid mx-auto"
-              src="<%= post[3].images[0] %>"
-              alt="Generic placeholder image"
-            />
-          </div>
+
+          <hr class="featurette-divider" />
         </div>
-
-        <hr class="featurette-divider" />
-      </div>
-
-      <%}%>
+      -->
     </main>
     <!-- End THE FEATURETTES -->
 
