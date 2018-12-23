@@ -38,7 +38,7 @@ router.get("/blog", (req, res, next) => {
     .limit(10)
     .then(result => {
       if (result) {
-        console.log(result[0].date);
+        
         res.render("blog/index", {
           Post: result,
           moment: moment
