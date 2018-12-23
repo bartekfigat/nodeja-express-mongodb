@@ -33,7 +33,13 @@ cloudinary.config({
 });
 
 router.get("/blog", (req, res, next) => {
-  Post.find({})
+  const filters = req.query.title ? {title: req.query.title}: {};
+                                //  if(req.params.title){
+                                  //{title: req.params.title
+                              //  }else{ {} }
+
+                              console.log(filters);
+  Post.find(filters)
     .skip(0)
     .limit(10)
     .then(result => {
@@ -99,6 +105,7 @@ router.post("/blog", isLoggedIn, upload.any("images"), (req, res) => {
           createAdvert(req, res, images);
           return;
         }
+        console.log('PROGRESS......')
       });
     }
   } else if (err) {

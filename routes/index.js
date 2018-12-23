@@ -76,7 +76,7 @@ router.post("/register", (req, res) => {
   let password = req.body.password;
 
   const newUser = new User({
-    username: _id,
+    username: username,
     useremail: useremail,
     authToken: jwt.sign(
       {
@@ -98,7 +98,7 @@ router.post("/register", (req, res) => {
       newUser.authToken
     }`,
     html: `Hello <strong>${newUser.username}</strong>.
-              Thank you for registering at localhost.com. Please click the link below to complete yor activation
+              Thank you for registering at localhost Please click the link below to complete yor activation
               <a href='http://localhost:3000/activate/${
                 newUser.authToken
               }'> http://localhost:3000/activate</a>'`
@@ -112,8 +112,11 @@ router.post("/register", (req, res) => {
       User.register(newUser, req.body.password, (err, user) => {
         if (err) {
           console.log(err);
-          req.flash("error", err.message);
-          return res.render("register");
+          
+          
+        }else{
+          return res.redirect("register");
+          console.log("send link");
         }
       });
     }
@@ -124,38 +127,40 @@ router.post("/register", (req, res) => {
 
 // ===================
 
-router.put("/activate/:token", (req, res) => {
-  User.findOne({ authToken: req.params.token }, (err, user) => {
+router.get("/activate/:token", (req, res) => {
+  console.log(req.params.token);
+  User.findOne({ 'authToken': req.params.token }, (err, user) => {
     if (err || !user) {
-      console.error(err);
+      console.error(0, err, user);
     } else {
       const token = req.params.token;
-      jwt.verify(token, secret, (err, decoded) => {
+      jwt.verify(token, "my_secret_key", (err, decoded) => {
         if (err || !user) {
-          console.log(err);
+          console.log(1, err);
         } else {
           user.authToken = false;
           user.isAuthenticated = true;
           user.save(err => {
             if (err) {
-              console.log(err);
+              console.log(2, err);
             } else {
               let email = {
                 from: "Localhost, bartek_19_83@hotmail.com",
-                to: `${newUser.useremail}`,
+                to: `${user.useremail}`,
                 subject: "Hello Account Activated",
                 text: `Hello ${
-                  newUser.username
+                  user.username
                 }.Your account has benn successfully activated`,
                 html: `Hello <strong>${
-                  newUser.username
+                  user.username
                 }</strong>.Your account has benn successfully activated`
               };
               client.sendMail(email, function(err, info) {
                 if (err) {
-                  console.log(err);
+                  console.log(3, err);
                 } else {
                   console.log("Message sent: " + info.response);
+                  res.render('activate');
                 }
               });
             }
