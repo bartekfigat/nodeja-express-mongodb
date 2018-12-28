@@ -3,7 +3,7 @@ const express = require("express");
 const passport = require("passport");
 const Post = require("../models/Post");
 const User = require("../models/user");
-
+const moment = require("moment");
 const cloudinary = require("cloudinary");
 const multer = require("multer");
 const flash = require("express-flash");
@@ -66,7 +66,7 @@ router.post("/register", (req, res) => {
     if (err) {
       console.log(err);
       req.flash("error", err.message);
-      return res.render("register");
+      return res.render("register", {err: err.message});
     }
     passport.authenticate("local")(req, res, () => {
       res.redirect("/blog");
@@ -94,6 +94,29 @@ router.post(
 router.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/blog");
+});
+
+
+
+router.get("/user", isLoggedIn, (req, res) => {
+  Post.find({author_id: req.user._id})
+    .skip(0)
+    .limit(10)
+    .then(result => {
+      if (result) {
+        res.render("user", {
+          Post: result,
+          moment: moment
+        });
+      } else {
+        return res.redirect("/");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
+
 });
 
 module.exports = router;

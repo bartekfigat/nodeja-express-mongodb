@@ -33,6 +33,7 @@ cloudinary.config({
 });
 
 router.get("/blog", (req, res, next) => {
+  console.log(".................", req.user);
   Post.find({})
     .skip(0)
     .limit(10)
@@ -135,6 +136,7 @@ function createAdvert(req, res, images) {
   let description = req.body.description;
   let content = req.body.content;
   let location = req.body.location;
+let author_id = req.user._id;
 
   geocodingClient
     .forwardGeocode({
@@ -154,7 +156,8 @@ function createAdvert(req, res, images) {
         content: content,
         images: images,
         coordinates: coordinates,
-        location: location
+        location: location,
+        author_id: author_id
       };
 
       Post.create(newPost)
