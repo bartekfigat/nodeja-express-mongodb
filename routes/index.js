@@ -36,9 +36,9 @@ router.get("/", (req, res) => {
   console.log(req.user);
   Post.find({})
     .sort({ title: -1 })
+    .limit(4)
     .then(post => {
       if (post) {
-        console.log(post[1].title);
         res.render("layouts/landingPage", {
           post: post,
           currentUser: req.user
