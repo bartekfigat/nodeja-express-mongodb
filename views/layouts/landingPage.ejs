@@ -53,7 +53,7 @@
 
           <% } else { %>
           <li class="nav-item">
-            <a class="nav-link" href="#">User: <%= currentUser.username %></a>
+            <a class="nav-link" href="/user">User: <%= currentUser.username %></a>
           </li>
 
           <li class="nav-item">
@@ -146,6 +146,7 @@
       </div>
 
       <!-- START THE FEATURETTES -->
+<<<<<<< HEAD
 
       <!--
         <div class="container top">
@@ -224,14 +225,40 @@
               <img
                 class="featurette-image img-fluid mx-auto"
                 src="<%= post[3].images[0] %>"
+=======
+      <div class="container top">
+        <% post.forEach((p) => { %>
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading"><%= p.title %></h2>
+              <p class="lead"><%= p.description %></p>
+              <div class="float-right">
+                <span class="text-muted">
+                  <i class="far fa-comments"></i><%= p.comments.length %>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <img
+                class="featurette-image img-fluid mx-auto"
+                src="<%= post[0].images[0] %>"
+>>>>>>> ff7e481c5115d22b52444ab1f221ee30c48cd19d
                 alt="Generic placeholder image"
               />
             </div>
           </div>
+<<<<<<< HEAD
 
           <hr class="featurette-divider" />
         </div>
       -->
+=======
+          <hr class="featurette-divider" />
+        <% }); %>
+
+      </div>
+
+>>>>>>> ff7e481c5115d22b52444ab1f221ee30c48cd19d
     </main>
     <!-- End THE FEATURETTES -->
 

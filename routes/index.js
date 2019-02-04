@@ -6,7 +6,7 @@ const sgTransport = require("nodemailer-sendgrid-transport");
 const jwt = require("jsonwebtoken");
 const Post = require("../models/Post");
 const User = require("../models/user");
-
+const moment = require("moment");
 const cloudinary = require("cloudinary");
 const multer = require("multer");
 const flash = require("express-flash");
@@ -47,9 +47,9 @@ const isLoggedIn = (req, res, next) => {
 router.get("/", (req, res) => {
   Post.find({})
     .sort({ title: -1 })
+    .limit(4)
     .then(post => {
       if (post) {
-        console.log(post[1].title);
         res.render("layouts/landingPage", {
           post: post,
           currentUser: req.user
@@ -106,6 +106,7 @@ router.post("/register", (req, res) => {
   client.sendMail(email, function(err, info) {
     if (err) {
       console.log(err);
+<<<<<<< HEAD
     } else {
       console.log("Message sent: " + info.response);
       User.register(newUser, req.body.password, (err, user) => {
@@ -115,6 +116,10 @@ router.post("/register", (req, res) => {
           return res.render("register");
         }
       });
+=======
+      req.flash("error", err.message);
+      return res.render("register", {err: err.message});
+>>>>>>> ff7e481c5115d22b52444ab1f221ee30c48cd19d
     }
   });
   // passport.authenticate("local")(req, res, () => {
@@ -184,6 +189,29 @@ router.post(
 router.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/blog");
+});
+
+
+
+router.get("/user", isLoggedIn, (req, res) => {
+  Post.find({author_id: req.user._id})
+    .skip(0)
+    .limit(10)
+    .then(result => {
+      if (result) {
+        res.render("user", {
+          Post: result,
+          moment: moment
+        });
+      } else {
+        return res.redirect("/");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
+
 });
 
 module.exports = router;
