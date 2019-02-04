@@ -33,7 +33,6 @@ const isLoggedIn = (req, res, next) => {
 //  { title: 1, _id: 0 }
 //root route
 router.get("/", (req, res) => {
-  console.log(req.user);
   Post.find({})
     .sort({ title: -1 })
     .then(post => {
